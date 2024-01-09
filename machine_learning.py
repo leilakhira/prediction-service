@@ -6,6 +6,8 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.preprocessing import RobustScaler
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
+from imblearn.over_sampling import SMOTE
+from sklearn.tree import DecisionTreeClassifier
 import os
 import time
 from sklearn.ensemble import GradientBoostingClassifier  #GBM algorithm
@@ -15,6 +17,7 @@ from sklearn.model_selection import GridSearchCV
 # Ignorer un avertissement spécifique (par exemple, le FutureWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import pickle
+import preprocessing
 
 app = Flask(__name__)
 
@@ -24,12 +27,6 @@ def hello():
 
 
 ############################################## Data Processing  ###############################
-
-def times_to_delta_sec(row):
-    purchase_sec = pd.to_datetime(row.purchase_time, format='%Y-%m-%d %H:%M:%S')
-    signup_sec = pd.to_datetime(row.signup_time, format='%Y-%m-%d %H:%M:%S')
-    
-    return (purchase_sec - signup_sec).seconds
 
 @app.route('/process_data', methods=['POST'])
 def process_data():
@@ -43,35 +40,10 @@ def process_data():
         return jsonify({"error": str(e)})
     dataset = pd.read_csv(file)              # Users information
 
-    print("[Time delta]")
-    dataset['time_delta_sec'] = dataset.apply(times_to_delta_sec, axis=1)
-
-
-    print("[Device frequency]")
-    # device_freq = dataset.groupby('device_id').count().user_id.reset_index(name='device_freq')
-    # device_freq.to_csv('data/Device_Frequency.csv')
-    device_freq = pd.read_csv('data/Device_Frequency.csv', usecols=['device_id', 'device_freq'])
-    dataset = dataset.join(device_freq.set_index('device_id'), on='device_id')
-
-
-    print("[Encoding]")
-    features_to_encode = ['source', 'browser', 'sex']
-    dataset = pd.get_dummies(dataset, columns=features_to_encode, dtype=int)
-
-
-
-    print("[Normalization]")
-    X_not_std = dataset[['purchase_value', 'age', 'device_freq', 'time_delta_sec', 'ip_address']]
-    scaler = RobustScaler()
-    X_std = scaler.fit_transform(X_not_std)
-    dataset[['purchase_value', 'age', 'device_freq', 'time_delta_sec', 'ip_address']] = X_std
-
-
-    dataset.drop(columns=['user_id', 'signup_time', 'purchase_time', 'device_id'], inplace=True)
-   # dataset.to_csv('data/dataset_encoded_normalized.csv')
+    preprocessed_data = preprocessing.preprocess(dataset)
 
     result={
-        "result":dataset.to_dict(orient="records") 
+        "result":preprocessed_data.to_dict(orient="records") 
     }      
    
     return result
@@ -83,24 +55,30 @@ def process_data():
 @app.route('/train_model', methods=['GET'])
 def train_model():
     try:
-        dataset_encoded_normalized = pd.read_csv("data/dataset_encoded_normalized.csv") 
-        dataset_encoded_normalized.drop(['Unnamed: 0'], axis=1, inplace=True)
-       # print(dataset_encoded_normalized)
-        y = dataset_encoded_normalized['class']
-        X = dataset_encoded_normalized.drop(['class'], axis=1)
+        dataset=pd.read_csv("data/Fraud_Data.csv")
+        dataset.drop(columns=['user_id', 'signup_time', 'purchase_time', 'device_id'], inplace=True)
+        X = dataset.drop(columns=['class'])
+        y = dataset['class']
+
         #split into train/test
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=41)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=15)
+        X_train = preprocessing.preprocess(X_train)
+        X_test = preprocessing.preprocess(X_test)
+
+        dt = DecisionTreeClassifier(ccp_alpha=0, criterion='gini', max_depth=8, max_features=None, min_samples_leaf=2, min_samples_split=2, splitter='random')
+        smote = SMOTE() # default : 5 nearest neighbors
+        X_train_smote, y_train_smote = smote.fit_resample(X_train, y_train)
+
+        dt.fit(X_train_smote, y_train_smote)
         
-        gbm_tuned = GradientBoostingClassifier(learning_rate=0.1, n_estimators=80,max_depth=6, min_samples_split = 500, min_samples_leaf = 60, max_features = 16,subsample=0.9, random_state=41)
-        gbm_tuned.fit(X_train, y_train)
         # Serialize and save the trained model using pickle
         with open('trained_model.pkl', 'wb') as model_file:
-            pickle.dump(gbm_tuned, model_file)
+            pickle.dump(dt, model_file)
 
         # predict class labels 0/1 for the test set
-        predicted = gbm_tuned.predict(X_test)
+        predicted = dt.predict(X_test)
         # generate class probabilities
-        probs = gbm_tuned.predict_proba(X_test)
+        probs = dt.predict_proba(X_test)
         # Generate evaluation metrics
         accuracy = accuracy_score(y_test, predicted)
         roc_auc = roc_auc_score(y_test, probs[:, 1])
@@ -120,6 +98,7 @@ def train_model():
             "precision": precision
         }
         return evaluation_results
+    
     except Exception as e:
            return jsonify({'error': str(e)})
 
