@@ -4,7 +4,7 @@ from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
 from sklearn.tree import DecisionTreeClassifier
 import warnings
-from sklearn.metrics import f1_score, roc_auc_score, roc_curve, precision_recall_curve, auc, make_scorer, recall_score, accuracy_score, precision_score, confusion_matrix
+from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, confusion_matrix
 # Ignorer un avertissement spécifique (par exemple, le FutureWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import pickle
@@ -17,29 +17,6 @@ def hello():
     return 'Hello, this is your microservice!'
 
 
-############################################## Data Processing  ###############################
-
-@app.route('/process_data', methods=['POST'])
-def process_data():
-    try:
-        # Vérifier si un fichier CSV est présent dans la requête
-        if 'file' not in request.files:
-            return jsonify({"error": "No CSV file provided."})
-
-        file = request.files['file']
-    except Exception as e:
-        return jsonify({"error": str(e)})
-    dataset = pd.read_csv(file)              # Users information
-
-    preprocessed_data = preprocessing.preprocess(dataset)
-
-    result={
-        "result":preprocessed_data.to_dict(orient="records") 
-    }      
-   
-    return result
-    
-##return dataset_encoded_
 
 ################################ Modelling ###############################
 
@@ -94,43 +71,7 @@ def train_model():
            return jsonify({'error': str(e)})
 
 
-############################################## Prediction ###############################
-
-@app.route('/prediction_model', methods=['POST'])
-def prediction_model():
-    try:
-        # Appeler la fonction process_data pour obtenir la réponse JSON
-        response = process_data()
-
-        # Assurez-vous que la réponse contient la clé 'result'
-        if 'result' not in response:
-            return jsonify({'error': 'Invalid response format. Missing "result" key.'})
-
-        # Extraire la DataFrame du dictionnaire de réponse
-        dataset_encoded_normalized = pd.DataFrame(response['result'])
-       # dataset_encoded = pd.read_csv("data/dataset_encoded_normalized_process.csv") 
-       #  Z = dataset_encoded.drop(['class'], axis=1)
-        X = dataset_encoded_normalized.drop(['class'], axis=1)
-
-        # Charger le modèle entraîné depuis le fichier
-        with open('trained_model.pkl', 'rb') as model_file:
-            gbm_tuned = pickle.load(model_file)
-
-        # predict class labels 0/1 for the test set
-        predicted = gbm_tuned.predict(X)
-        # Créer un DataFrame avec les prédictions
-        predictions_df = pd.DataFrame({'predictions': predicted})
-
-        # Enregistrer le DataFrame dans un fichier Excel
-        predictions_df.to_csv('data/predictions_.csv', index=False)
-        
-        # Retourner les prédictions
-        return jsonify(predicted.tolist())
-    
-    except Exception as e:
-           return jsonify({'error': str(e)})
-
         
 if __name__ == '__main__':
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8002)
 
