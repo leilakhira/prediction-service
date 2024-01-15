@@ -28,7 +28,9 @@ def process_data():
 
         file = request.files['file']
     except Exception as e:
+        print(e)
         return jsonify({"error": str(e)})
+    
     dataset = pd.read_csv(file)              # Users information
 
     preprocessed_data = preprocessing.preprocess(dataset)

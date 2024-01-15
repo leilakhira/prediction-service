@@ -21,6 +21,7 @@ def preprocess(new_data):
 
     print("Time delta...", end="")
     dataset['time_delta_sec'] = dataset.apply(times_to_delta_sec, axis=1)
+    new_data['time_delta_sec'] = new_data.apply(times_to_delta_sec, axis=1)
     print("DONE.")
 
 
@@ -33,7 +34,7 @@ def preprocess(new_data):
 
 
 
-    dataset.drop(columns=['user_id', 'signup_time', 'purchase_time', 'device_id'], inplace=True)
+    #dataset.drop(columns=['user_id', 'signup_time', 'purchase_time', 'device_id'], inplace=True)
 
     X = dataset.drop(columns=['class'])
     y = dataset['class']
@@ -49,10 +50,10 @@ def preprocess(new_data):
 
     print("Normalization...", end="")
     scaler = RobustScaler()
-    scaler.fit(X_train[['purchase_value', 'age', 'device_freq', 'time_delta_sec', 'ip_address']])
+    scaler.fit(X_train[['purchase_value', 'age', 'time_delta_sec', 'ip_address']])
 
-    scaled = scaler.transform(new_data[['purchase_value', 'age', 'device_freq', 'time_delta_sec', 'ip_address']])
-    new_data[['purchase_value', 'age', 'device_freq', 'time_delta_sec', 'ip_address']] = scaled
+    scaled = scaler.transform(new_data[['purchase_value', 'age', 'time_delta_sec', 'ip_address']])
+    new_data[['purchase_value', 'age', 'time_delta_sec', 'ip_address']] = scaled
     print("DONE.")
 
 
