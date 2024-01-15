@@ -45,6 +45,8 @@ def preprocess(new_data):
     y_train.reset_index(drop=True, inplace=True)
     y_test.reset_index(drop=True, inplace=True)
 
+    new_data.reset_index(drop=True, inplace=True)
+
 
 
 
