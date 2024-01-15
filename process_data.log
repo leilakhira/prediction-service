@@ -1,0 +1,6 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 829-108-846
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/process_data.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 829-108-846
+INFO:werkzeug:127.0.0.1 - - [15/Jan/2024 15:16:34] "POST /process_data HTTP/1.1" 200 -

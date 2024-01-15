@@ -9,6 +9,9 @@ from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, confusion_m
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import pickle
 import preprocessing
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename='process_data.log')
 
 app = Flask(__name__)
 
@@ -28,7 +31,7 @@ def process_data():
 
         file = request.files['file']
     except Exception as e:
-        print(e)
+        logging.debug("%s", e)
         return jsonify({"error": str(e)})
     
     dataset = pd.read_csv(file)              # Users information
