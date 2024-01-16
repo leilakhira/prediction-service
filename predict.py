@@ -1,42 +1,36 @@
 from flask import Flask, request, jsonify
 import pandas as pd
-from sklearn.model_selection import train_test_split
-from imblearn.over_sampling import SMOTE
-from sklearn.tree import DecisionTreeClassifier
 import warnings
-from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, confusion_matrix
+import pickle
+import logging
+import traceback
+import preprocessing
+
 # Ignorer un avertissement spécifique (par exemple, le FutureWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
-import pickle
-import requests
-import preprocessing
+
+logging.basicConfig(level=logging.DEBUG, filename='predict.log')
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Hello, this is your microservice!'
+    return 'Hello, this is the prediction microservice!'
 
 
 ############################################## Prediction ###############################
 
-url_process = "http://127.0.0.1:8001/process_data"
 
 @app.route('/prediction_model', methods=['POST'])
 def prediction_model():
+    logging.info("Start of prediction")
+
     try:
-        # Appeler la fonction process_data pour obtenir la réponse JSON
-        response = requests.post(url_process, data=request.files['file'])
+        file = request.files['file']
+        data = pd.read_csv(file)
 
-        # Assurez-vous que la réponse contient la clé 'result'
-        if 'result' not in response:
-            return jsonify({'error': 'Invalid response format. Missing "result" key.'})
-
-        # Extraire la DataFrame du dictionnaire de réponse
-        dataset_encoded_normalized = pd.DataFrame(response['result'])
-       # dataset_encoded = pd.read_csv("data/dataset_encoded_normalized_process.csv") 
-       #  Z = dataset_encoded.drop(['class'], axis=1)
-        X = dataset_encoded_normalized.drop(['class'], axis=1)
+        X = data.drop(['class'], axis=1)
+        X = preprocessing.preprocess(X)
 
         # Charger le modèle entraîné depuis le fichier
         with open('trained_model.pkl', 'rb') as model_file:
@@ -51,9 +45,11 @@ def prediction_model():
         predictions_df.to_csv('data/predictions_.csv', index=False)
         
         # Retourner les prédictions
+        logging.info("End of prediction")
         return jsonify(predicted.tolist())
     
     except Exception as e:
+           logging.error(traceback.format_exc())
            return jsonify({'error': str(e)})
 
         

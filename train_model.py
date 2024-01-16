@@ -9,12 +9,16 @@ from sklearn.metrics import f1_score, roc_auc_score, accuracy_score, confusion_m
 warnings.simplefilter(action='ignore', category=FutureWarning)
 import pickle
 import preprocessing
+import traceback
+import logging
+
+logging.basicConfig(level=logging.DEBUG, filename='train_model.log')
 
 app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Hello, this is your microservice!'
+    return 'Hello, this is the model training microservice!'
 
 
 
@@ -22,27 +26,34 @@ def hello():
 
 @app.route('/train_model', methods=['GET'])
 def train_model():
+    logging.info("Start of model training")
+
     try:
         dataset=pd.read_csv("data/Fraud_Data.csv")
-        dataset.drop(columns=['user_id', 'signup_time', 'purchase_time', 'device_id'], inplace=True)
         X = dataset.drop(columns=['class'])
         y = dataset['class']
 
         #split into train/test
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=15)
+
+        logging.info("Preprocessing...")
         X_train = preprocessing.preprocess(X_train)
         X_test = preprocessing.preprocess(X_test)
 
+        logging.info("Rebalancing...")
         dt = DecisionTreeClassifier(ccp_alpha=0, criterion='gini', max_depth=8, max_features=None, min_samples_leaf=2, min_samples_split=2, splitter='random')
         smote = SMOTE() # default : 5 nearest neighbors
         X_train_smote, y_train_smote = smote.fit_resample(X_train, y_train)
 
+        logging.info("Fitting...")
         dt.fit(X_train_smote, y_train_smote)
         
+        print(X_train_smote.head(5))
         # Serialize and save the trained model using pickle
         with open('trained_model.pkl', 'wb') as model_file:
             pickle.dump(dt, model_file)
 
+        logging.info("Computing prediction scores...")
         # predict class labels 0/1 for the test set
         predicted = dt.predict(X_test)
         # generate class probabilities
@@ -65,9 +76,12 @@ def train_model():
             "recall": recall,
             "precision": precision
         }
+
+        logging.info("End of model training")
         return evaluation_results
     
     except Exception as e:
+           logging.error(traceback.format_exc())
            return jsonify({'error': str(e)})
 
 

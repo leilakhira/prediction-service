@@ -10,7 +10,7 @@ def times_to_delta_sec(row):
     purchase_sec = pd.to_datetime(row.purchase_time, format='%Y-%m-%d %H:%M:%S')
     signup_sec = pd.to_datetime(row.signup_time, format='%Y-%m-%d %H:%M:%S')
     
-    return (purchase_sec - signup_sec).seconds
+    return (purchase_sec - signup_sec).total_seconds()
 
 
 
@@ -73,6 +73,8 @@ def preprocess(new_data):
     encoded = pd.DataFrame(encoded, columns=encoded_cols, dtype=int)
     new_data = pd.concat([new_data, encoded], axis=1).drop(columns=['source', 'browser', 'sex'])
     print("DONE.")
+
+    new_data.drop(columns=['user_id', 'signup_time', 'purchase_time', 'device_id'], inplace=True)
 
 
     return new_data

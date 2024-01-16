@@ -1,0 +1,240 @@
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : ImmutableMultiDict([('file', <FileStorage: 'data/Fraud_Data.csv' (None)>)])
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 39
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:30:10] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 30, in prediction_model
+    logging.info("Request files : %s", request.files['files'])
+                                       ~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/werkzeug/datastructures.py", line 375, in __getitem__
+    raise exceptions.BadRequestKeyError(key)
+werkzeug.exceptions.BadRequestKeyError: 400 Bad Request: The browser (or proxy) sent a request that this server could not understand.
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:31:25] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 39
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:32:13] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 32, in prediction_model
+    response = requests.post(url_process, files=request.files['file'])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/api.py", line 115, in post
+    return request("post", url, data=data, json=json, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/api.py", line 59, in request
+    return session.request(method=method, url=url, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/sessions.py", line 575, in request
+    prep = self.prepare_request(req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/sessions.py", line 486, in prepare_request
+    p.prepare(
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/models.py", line 371, in prepare
+    self.prepare_body(data, files, json)
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/models.py", line 556, in prepare_body
+    (body, content_type) = self._encode_files(files, data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/requests/models.py", line 173, in _encode_files
+    for (k, v) in files:
+        ^^^^^^
+ValueError: too many values to unpack (expected 2)
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:52:21] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54194597
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:54:07] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54194597
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:56:39] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54194597
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 09:59:34] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54194597
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 48, in prediction_model
+    predicted = dt.predict(X)
+                ^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 426, in predict
+    X = self._validate_X_predict(X, check_input)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 392, in _validate_X_predict
+    X = self._validate_data(X, dtype=DTYPE, accept_sparse="csr", reset=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 548, in _validate_data
+    self._check_feature_names(X, reset=reset)
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 481, in _check_feature_names
+    raise ValueError(message)
+ValueError: The feature names should match those that were passed during fit.
+Feature names must be in the same order as they were in fit.
+
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 10:03:45] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/preprocessing.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/process_data.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/train_model.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:Request files : <FileStorage: 'data/Fraud_Data.csv' (None)>
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54195043
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 49, in prediction_model
+    predicted = dt.predict(X)
+                ^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 426, in predict
+    X = self._validate_X_predict(X, check_input)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 392, in _validate_X_predict
+    X = self._validate_data(X, dtype=DTYPE, accept_sparse="csr", reset=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 548, in _validate_data
+    self._check_feature_names(X, reset=reset)
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 481, in _check_feature_names
+    raise ValueError(message)
+ValueError: The feature names should match those that were passed during fit.
+Feature names must be in the same order as they were in fit.
+
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 10:28:20] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/process_data.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54195043
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 47, in prediction_model
+    predicted = dt.predict(X)
+                ^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 426, in predict
+    X = self._validate_X_predict(X, check_input)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 392, in _validate_X_predict
+    X = self._validate_data(X, dtype=DTYPE, accept_sparse="csr", reset=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 548, in _validate_data
+    self._check_feature_names(X, reset=reset)
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 481, in _check_feature_names
+    raise ValueError(message)
+ValueError: The feature names should match those that were passed during fit.
+Feature names must be in the same order as they were in fit.
+
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 10:32:20] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/process_data.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54195043
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 48, in prediction_model
+    predicted = dt.predict(X)
+                ^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 426, in predict
+    X = self._validate_X_predict(X, check_input)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/tree/_classes.py", line 392, in _validate_X_predict
+    X = self._validate_data(X, dtype=DTYPE, accept_sparse="csr", reset=False)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 548, in _validate_data
+    self._check_feature_names(X, reset=reset)
+  File "/home/shinawi-/Bureau/5SDBD/Projet/venv/lib/python3.11/site-packages/sklearn/base.py", line 481, in _check_feature_names
+    raise ValueError(message)
+ValueError: The feature names should match those that were passed during fit.
+Feature names must be in the same order as they were in fit.
+
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 10:36:00] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/process_data.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): 127.0.0.1:8001
+DEBUG:urllib3.connectionpool:http://127.0.0.1:8001 "POST /process_data HTTP/1.1" 200 54195043
+ERROR:root:Traceback (most recent call last):
+  File "/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py", line 32, in prediction_model
+    print(response.raw())
+          ^^^^^^^^^^^^^^
+TypeError: 'HTTPResponse' object is not callable
+
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 10:38:08] "POST /prediction_model HTTP/1.1" 200 -
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/process_data.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/prediction-service/predict.py', reloading
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:root:Start of prediction
+INFO:root:End of prediction
+INFO:werkzeug:127.0.0.1 - - [16/Jan/2024 10:47:31] "POST /prediction_model HTTP/1.1" 200 -
