@@ -12,7 +12,7 @@ import preprocessing
 import traceback
 import logging
 
-logging.basicConfig(level=logging.DEBUG, filename='train_model.log')
+logging.basicConfig(level=logging.DEBUG, filename='log/train_model.log')
 
 app = Flask(__name__)
 
@@ -50,7 +50,7 @@ def train_model():
         
         print(X_train_smote.head(5))
         # Serialize and save the trained model using pickle
-        with open('trained_model.pkl', 'wb') as model_file:
+        with open('model/trained_model.pkl', 'wb') as model_file:
             pickle.dump(dt, model_file)
 
         logging.info("Computing prediction scores...")

@@ -229,3 +229,16 @@ INFO:werkzeug: * Detected change in '/home/shinawi-/Bureau/5SDBD/Projet/predicti
 INFO:werkzeug: * Restarting with stat
 WARNING:werkzeug: * Debugger is active!
 INFO:werkzeug: * Debugger PIN: 985-958-854
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8002
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 108-714-528
+INFO:root:Start of model training
+INFO:root:Preprocessing...
+INFO:root:Rebalancing...
+INFO:root:Fitting...
+INFO:root:Computing prediction scores...
+INFO:root:End of model training
+INFO:werkzeug:127.0.0.1 - - [17/Jan/2024 13:56:07] "GET /train_model HTTP/1.1" 200 -

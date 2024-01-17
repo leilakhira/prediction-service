@@ -9,7 +9,7 @@ import preprocessing
 # Ignorer un avertissement spécifique (par exemple, le FutureWarning)
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-logging.basicConfig(level=logging.DEBUG, filename='predict.log')
+logging.basicConfig(level=logging.DEBUG, filename='log/predict.log')
 
 app = Flask(__name__)
 
@@ -33,7 +33,7 @@ def prediction_model():
         X = preprocessing.preprocess(X)
 
         # Charger le modèle entraîné depuis le fichier
-        with open('trained_model.pkl', 'rb') as model_file:
+        with open('model/trained_model.pkl', 'rb') as model_file:
             dt = pickle.load(model_file)
 
         # predict class labels 0/1 for the test set
